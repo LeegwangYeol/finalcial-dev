@@ -135,6 +135,10 @@ namespace Financial
             LoadTransactionsData();
             LoadBillsData();
             LoadMetricsData();
+            
+            // 사이드바 및 헤더 이벤트 핸들러 추가
+            AddSidebarEventHandlers();
+            AddHeaderEventHandlers();
         }
 
         private void LoadAccountsData()
@@ -206,6 +210,116 @@ namespace Financial
             {
                 detailsButton.Click += DetailsButton_Click;
             }
+        }
+
+        // 사이드바 이벤트 핸들러 추가
+        private void AddSidebarEventHandlers()
+        {
+            // 사이드바 패널의 모든 하위 컨트롤 순회
+            foreach (Control menuPanel in sidebarPanel.Controls)
+            {
+                if (menuPanel is Panel)
+                {
+                    menuPanel.Click += MenuPanel_Click;
+                    
+                    // 패널 내부의 모든 라벨에도 이벤트 추가
+                    foreach (Control control in menuPanel.Controls)
+                    {
+                        if (control is Label)
+                        {
+                            control.Click += MenuPanel_Click;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 헤더 이벤트 핸들러 추가
+        private void AddHeaderEventHandlers()
+        {
+            if (notificationButton != null)
+            {
+                notificationButton.Click += NotificationButton_Click;
+            }
+            
+            if (darkModeButton != null)
+            {
+                darkModeButton.Click += DarkModeButton_Click;
+            }
+            
+            if (profileButton != null)
+            {
+                profileButton.Click += ProfileButton_Click;
+            }
+        }
+
+        // 메뉴 패널 클릭 이벤트 핸들러
+        private void MenuPanel_Click(object? sender, EventArgs e)
+        {
+            // 클릭된 메뉴 항목 확인
+            if (sender is Control control)
+            {
+                // 클릭된 컨트롤이 라벨인 경우 부모 패널 찾기
+                Panel? clickedPanel = null;
+                
+                if (control is Label label && label.Parent is Panel parentPanel)
+                {
+                    clickedPanel = parentPanel;
+                }
+                else if (control is Panel panel)
+                {
+                    clickedPanel = panel;
+                }
+                
+                if (clickedPanel == null)
+                {
+                    return; // 유효한 패널이 없으면 종료
+                }
+                
+                // 모든 메뉴 패널 배경색 초기화
+                foreach (Control menuPanel in sidebarPanel.Controls)
+                {
+                    if (menuPanel is Panel)
+                    {
+                        menuPanel.BackColor = Color.Transparent;
+                    }
+                }
+                
+                // 클릭된 메뉴 패널 강조 표시
+                clickedPanel.BackColor = Color.FromArgb(32, 32, 32);
+                
+                // 메뉴 항목에 따른 작업 수행
+                string menuText = "";
+                foreach (Control c in clickedPanel.Controls)
+                {
+                    if (c is Label menuLabel && menuLabel.Location.X > 40) // 메뉴 텍스트 라벨 찾기
+                    {
+                        menuText = menuLabel.Text;
+                        break;
+                    }
+                }
+                
+                MessageBox.Show($"{menuText} 메뉴가 선택되었습니다.", "메뉴 선택", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // 알림 버튼 클릭 이벤트 핸들러
+        private void NotificationButton_Click(object? sender, EventArgs e)
+        {
+            MessageBox.Show("알림 목록을 표시합니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // 다크모드 전환 버튼 클릭 이벤트 핸들러
+        private void DarkModeButton_Click(object? sender, EventArgs e)
+        {
+            // 다크모드와 라이트모드 전환 로직 (현재는 메시지만 표시)
+            MessageBox.Show("테마를 전환합니다.", "테마 변경", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // 프로필 버튼 클릭 이벤트 핸들러
+        private void ProfileButton_Click(object? sender, EventArgs e)
+        {
+            MessageBox.Show("프로필 정보를 표시합니다.", "프로필", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // 버튼 이벤트 핸들러

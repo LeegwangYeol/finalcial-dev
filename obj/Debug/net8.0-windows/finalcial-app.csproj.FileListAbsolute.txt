@@ -12,3 +12,4 @@ C:\Source\finalcial-app\obj\Debug\net8.0-windows\refint\finalcial-app.dll
 C:\Source\finalcial-app\obj\Debug\net8.0-windows\finalcial-app.pdb
 C:\Source\finalcial-app\obj\Debug\net8.0-windows\finalcial-app.genruntimeconfig.cache
 C:\Source\finalcial-app\obj\Debug\net8.0-windows\ref\finalcial-app.dll
+C:\Source\finalcial-app\obj\Debug\net8.0-windows\finalcial-app.sourcelink.json
