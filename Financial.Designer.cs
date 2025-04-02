@@ -63,11 +63,14 @@ namespace Financial
             this.Text = "Financial Dashboard";
             this.BackColor = Color.FromArgb(18, 18, 18); // 다크 테마 배경색
 
-            // 레이아웃 구성
+            // 레이아웃 구성 - 순서 변경하여 겹침 현상 해결
             CreateSidebarPanel();
             CreateHeaderPanel();
             CreateMainContentPanel();
             CreateDashboardPanel();
+            
+            // Z-order 조정
+            mainContentPanel.BringToFront();
 
             this.ResumeLayout(false);
         }
@@ -78,7 +81,7 @@ namespace Financial
             sidebarPanel = new Panel
             {
                 Dock = DockStyle.Left,
-                Width = 220,
+                Width = 300,
                 BackColor = Color.FromArgb(24, 24, 24)
             };
             this.Controls.Add(sidebarPanel);
@@ -241,10 +244,13 @@ namespace Financial
 
         private void CreateMainContentPanel()
         {
-            // 메인 콘텐츠 패널
+            // 메인 콘텐츠 패널 - 사이드바와 헤더를 고려한 위치 설정
             mainContentPanel = new Panel
             {
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.None,
+                Location = new Point(220, 60), // 사이드바 너비(220)와 헤더 높이(60)를 고려한 위치
+                Size = new Size(this.ClientSize.Width - 220, this.ClientSize.Height - 60),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.FromArgb(18, 18, 18),
                 Padding = new Padding(20)
             };
