@@ -25,6 +25,7 @@
 *.pem
 bin/
 .vscode/
+obj/
 # debug
 npm-debug.log*
 yarn-debug.log*
