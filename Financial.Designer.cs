@@ -129,13 +129,13 @@ namespace Financial
                 };
                 menuItemPanel.Controls.Add(iconLabel);
 
-                // 메뉴 텍스트 라벨
+                // 메뉴 텍스트 라벨 - 아이콘과의 간격 조정
                 Label menuLabel = new Label
                 {
                     Text = menuItems[i],
                     Font = new Font("Segoe UI", 10),
                     ForeColor = Color.White,
-                    Location = new Point(50, 10),
+                    Location = new Point(65, 10), // 50에서 60으로 변경하여 아이콘과의 간격 확보
                     AutoSize = true
                 };
                 menuItemPanel.Controls.Add(menuLabel);
@@ -176,7 +176,7 @@ namespace Financial
                     Text = bottomMenuItems[i],
                     Font = new Font("Segoe UI", 10),
                     ForeColor = Color.White,
-                    Location = new Point(50, 10),
+                    Location = new Point(65, 10), // 50에서 60으로 변경하여 아이콘과의 간격 확보
                     AutoSize = true
                 };
                 menuItemPanel.Controls.Add(menuLabel);
@@ -248,8 +248,8 @@ namespace Financial
             mainContentPanel = new Panel
             {
                 Dock = DockStyle.None,
-                Location = new Point(220, 60), // 사이드바 너비(220)와 헤더 높이(60)를 고려한 위치
-                Size = new Size(this.ClientSize.Width - 220, this.ClientSize.Height - 60),
+                Location = new Point(300, 60), // 사이드바 너비(300)와 헤더 높이(60)를 고려한 위치
+                Size = new Size(this.ClientSize.Width - 300, this.ClientSize.Height - 60),
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
                 BackColor = Color.FromArgb(18, 18, 18),
                 Padding = new Padding(20)
@@ -465,7 +465,7 @@ namespace Financial
                 Panel transactionPanel = new Panel
                 {
                     Location = new Point(10, yPos),
-                    Size = new Size(panel.Width - 22, 50),
+                    Size = new Size(panel.Width - 22, 60), // 패널 높이 증가 (50 -> 60)
                     BackColor = Color.FromArgb(32, 32, 32)
                 };
                 panel.Controls.Add(transactionPanel);
@@ -476,7 +476,7 @@ namespace Financial
                     Text = names[i],
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
                     ForeColor = Color.White,
-                    Location = new Point(10, 5),
+                    Location = new Point(10, 8), // 위치 조정 (5 -> 8)
                     AutoSize = true
                 };
                 transactionPanel.Controls.Add(nameLabel);
@@ -487,7 +487,7 @@ namespace Financial
                     Text = dates[i],
                     Font = new Font("Segoe UI", 8),
                     ForeColor = Color.Gray,
-                    Location = new Point(10, 25),
+                    Location = new Point(10, 30), // 위치 조정 (25 -> 30)
                     AutoSize = true
                 };
                 transactionPanel.Controls.Add(dateLabel);
@@ -498,13 +498,13 @@ namespace Financial
                     Text = amounts[i],
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
                     ForeColor = amounts[i].StartsWith("+") ? Color.Green : Color.Red,
-                    Location = new Point(transactionPanel.Width - 80, 15),
+                    Location = new Point(transactionPanel.Width - 90, 20), // 위치 조정 (x: -80 -> -90, y: 15 -> 20)
                     AutoSize = true,
                     TextAlign = ContentAlignment.MiddleRight
                 };
                 transactionPanel.Controls.Add(amountLabel);
 
-                yPos += 60;
+                yPos += 70; // 간격 증가 (60 -> 70)
             }
 
             // View All 버튼
@@ -557,7 +557,8 @@ namespace Financial
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
                     ForeColor = Color.White,
                     Location = new Point(15, yPos),
-                    AutoSize = true
+                    AutoSize = true,
+                    MaximumSize = new Size(panel.Width - 120, 0) // 최대 너비 제한으로 텍스트 겹침 방지
                 };
                 panel.Controls.Add(billNameLabel);
 
@@ -566,7 +567,7 @@ namespace Financial
                     Text = "Due: " + dueDates[i],
                     Font = new Font("Segoe UI", 8),
                     ForeColor = Color.Gray,
-                    Location = new Point(15, yPos + 20),
+                    Location = new Point(15, yPos + 22), // 위치 조정 (20 -> 22)
                     AutoSize = true
                 };
                 panel.Controls.Add(dueDateLabel);
@@ -576,7 +577,7 @@ namespace Financial
                     Text = "$" + billAmounts[i].ToString(),
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
                     ForeColor = Color.White,
-                    Location = new Point(panel.Width - 100, yPos + 10),
+                    Location = new Point(panel.Width - 110, yPos + 10), // 위치 조정 (-100 -> -110)
                     AutoSize = true
                 };
                 panel.Controls.Add(amountLabel);
@@ -593,7 +594,7 @@ namespace Financial
                 payButton.FlatAppearance.BorderColor = Color.Gray;
                 panel.Controls.Add(payButton);
 
-                yPos += 50;
+                yPos += 60; // 간격 증가 (50 -> 60)
             }
 
             return panel;
