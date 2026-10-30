@@ -34,12 +34,14 @@ namespace finalcial_app
 
         public void Deposit(decimal amount)
         {
+            if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be positive");
             Balance += amount;
             Console.WriteLine($"{amount:C} 입금 완료. 현재 잔액: {Balance:C}");
         }
 
         public void Withdraw(decimal amount)
         {
+            if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be positive");
             if (Balance >= amount)
             {
                 Balance -= amount;
@@ -78,6 +80,9 @@ public class ExampleClass { }
             Deposit(500.00m);
             Withdraw(200.00m);
             
+            try { Deposit(-100.00m); } catch (Exception e) { Console.WriteLine("Caught exception for negative deposit: " + e.Message); }
+            try { Withdraw(-100.00m); } catch (Exception e) { Console.WriteLine("Caught exception for negative withdraw: " + e.Message); }
+
             Console.WriteLine(alpha == beta);
             Console.WriteLine(beta == beta2);
 
