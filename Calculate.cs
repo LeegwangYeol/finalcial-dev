@@ -34,12 +34,14 @@ namespace finalcial_app
 
         public void Deposit(decimal amount)
         {
+            if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
             Balance += amount;
             Console.WriteLine($"{amount:C} 입금 완료. 현재 잔액: {Balance:C}");
         }
 
         public void Withdraw(decimal amount)
         {
+            if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
             if (Balance >= amount)
             {
                 Balance -= amount;
