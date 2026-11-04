@@ -34,12 +34,18 @@ namespace finalcial_app
 
         public void Deposit(decimal amount)
         {
+            if (amount <= 0)
+                throw new ArgumentException("Amount must be positive", nameof(amount));
+
             Balance += amount;
             Console.WriteLine($"{amount:C} 입금 완료. 현재 잔액: {Balance:C}");
         }
 
         public void Withdraw(decimal amount)
         {
+            if (amount <= 0)
+                throw new ArgumentException("Amount must be positive", nameof(amount));
+
             if (Balance >= amount)
             {
                 Balance -= amount;
@@ -72,8 +78,17 @@ namespace finalcial_app
 
 public class ExampleClass { }
 
+        public static void TestNegativeInput()
+        {
+            var calc = new Calculate();
+            try { calc.Deposit(-10m); throw new Exception("Expected ArgumentException on Deposit"); } catch (ArgumentException) { }
+            try { calc.Withdraw(-10m); throw new Exception("Expected ArgumentException on Withdraw"); } catch (ArgumentException) { }
+            Console.WriteLine("TestNegativeInput passed.");
+        }
+
         public void Execute()
         {
+            TestNegativeInput();
             // 인터페이스 사용 예시
             Deposit(500.00m);
             Withdraw(200.00m);
